@@ -1,0 +1,20 @@
+[Unit]
+Description=Lotus Storage Miner
+After=network.target
+After=lotus-daemon.service
+Requires=lotus-daemon.service
+
+[Service]
+ExecStart=/usr/local/bin/lotus-storage-miner run
+Environment=GOLOG_FILE="/home/fox/log/lotus/miner.log"
+Environment=GOLOG_LOG_FMT="json"
+Environment=FIL_PROOFS_USE_GPU_TREE_BUILDER=1
+Environment=FIL_PROOFS_USE_GPU_COLUMN_BUILDER=1
+Environment=FIL_PROOFS_MAXIMIZE_CACHING=1
+Environment=RUST_LOG=Trace
+Environment=LOTUS_STORAGE_PATH=/data2/lotus/miner
+Environment=LOTUS_PATH=/data2/lotus/daemon
+Environment=FIL_PROOFS_PARAMETER_CACHE=/cache1/proofs
+
+[Install]
+WantedBy=multiuser.target
