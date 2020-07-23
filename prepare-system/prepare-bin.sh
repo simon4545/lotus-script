@@ -10,9 +10,9 @@ cur_date="$(date "+%m%d-%H")"
 
 lotus_rep="https://github.com/filecoin-project/lotus.git"
 rep_dir="lotus-${cur_date}"
-branch=""
+branch="ntwk-calibration"
 
-proxy="socks5://192.168.0.8:11080"
+proxy="http://192.168.0.8:8000"
 
 _red() {
     printf '\033[1;31;31m%b\033[0m' "$1"
@@ -93,12 +93,12 @@ prepare_rust() {
 # Make bench from source
 make_bench() {
     cd ${cur_dir}
-    _error_detect "git clone ${lotus_rep} ${rep_dir}"
+    _error_detect "git clone -b ${branch} ${lotus_rep} ${rep_dir}"
     _error_detect "cd ${rep_dir}"
     _error_detect "git submodule init"
     _error_detect "git submodule update"
     sed -i 's/"check_cpu_for_feature": null/"check_cpu_for_feature": "sha_ni"/g' extern/filecoin-ffi/rust/rustc-target-features-optimized.json
-    env RUSTFLAGS='-C target-cpu=native -g' FIL_PROOFS_USE_GPU_COLUMN_BUILDER=1 FIL_PROOFS_USE_GPU_TREE_BUILDER=1 FFI_BUILD_FROM_SOURCE=1 make clean all bench
+    env RUSTFLAGS='-C target-cpu=native -g' FIL_PROOFS_USE_GPU_COLUMN_BUILDER=1 FIL_PROOFS_USE_GPU_TREE_BUILDER=1 FFI_BUILD_FROM_SOURCE=1 make clean all lotus-bench
 }
 
 main() {
