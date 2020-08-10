@@ -9,12 +9,12 @@ From: ubuntu:18.04
     ./lotus
     ./lotus-miner
     ./lotus-worker
-    ./sources.list
-    ./certs /etc/ssl/certs
+    /etc/apt/sources.list
+    /etc/ssl/certs
 
 %post
     # sed -i 's/archive.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list
-    mv -f sources.list /etc/apt
+    # mv -f sources.list /etc/apt
     apt-get update && apt-get install -y mesa-opencl-icd ocl-icd-opencl-dev
     rm -rf /var/lib/apt/lists/*
 
@@ -26,7 +26,7 @@ From: ubuntu:18.04
     # export TRUST_PARAMS=1
     export RUST_LOG=info
     export FIL_PROOFS_MAXIMIZE_CACHING=1
-    # export FIL_PROOFS_USE_GPU_COLUMN_BUILDER=1
+    export FIL_PROOFS_USE_GPU_COLUMN_BUILDER=1
     export FIL_PROOFS_PARAMETER_CACHE=/proofs
     export LOTUS_PATH=/daemon
     export LOTUS_STORAGE_PATH=/miner
