@@ -25,7 +25,9 @@
 #  ConsiderOfflineRetrievalDeals = true
 #  PieceCidBlocklist = []
 #  ExpectedSealDuration = "12h0m0s"
-#
+  # Only accept deals from the 3 competition dealbots
+  Filter = "jq -e '.Proposal.Client == \"t1nslxql4pck5pq7hddlzym3orxlx35wkepzjkm3i\" or .Proposal.Client == \"t1stghxhdp2w53dym2nz2jtbpk6ccd4l2lxgmezlq\" or .Proposal.Client == \"t1mcr5xkgv4jdl3rnz77outn6xbmygb55vdejgbfi\" '"
+
 [Storage]
 #  ParallelFetchLimit = 10
   AllowPreCommit1 = false
@@ -33,11 +35,7 @@
   AllowCommit = true
   AllowUnseal = false
 
-[Dealmaking]
-  ## Only accept deals from the 3 competition dealbots
-  Filter = "jq -e '.Proposal.Client == \"t1nslxql4pck5pq7hddlzym3orxlx35wkepzjkm3i\" or .Proposal.Client == \"t1stghxhdp2w53dym2nz2jtbpk6ccd4l2lxgmezlq\" or .Proposal.Client == \"t1mcr5xkgv4jdl3rnz77outn6xbmygb55vdejgbfi\" '"
-
 [Fees]
-  MaxPreCommitGasFee = "0.05 FIL"
-  MaxCommitGasFee = "0.05 FIL"
+  MaxPreCommitGasFee = "2 FIL"
+  MaxCommitGasFee = "2 FIL"
   MaxWindowPoStGasFee = "50 FIL"

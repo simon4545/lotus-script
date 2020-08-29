@@ -2,9 +2,9 @@
 
 set -eo pipefail
 
-lotus_dir=/data1/lotus
+lotus_dir=/nfs1/lotus
 proofs_dir=/data1/proofs
-log_dir=$HOME/log
+log_dir=log
 
 mkdir -p $lotus_dir
 mkdir -p $log_dir
@@ -18,4 +18,4 @@ export WORKER_PATH=$lotus_dir/worker
 
 ulimit -HSn 1048576
 
-nohup lotus daemon >> $log_dir/daemon.log 2>&1 &
+nohup ./lotus daemon >> $log_dir/daemon.log 2>&1 &

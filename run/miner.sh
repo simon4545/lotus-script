@@ -2,9 +2,9 @@
 
 set -eo pipefail
 
-lotus_dir=/data1/lotus
+lotus_dir=/nfs1/lotus
 proofs_dir=/data1/proofs
-log_dir=$HOME/log
+log_dir=log
 
 mkdir -p $lotus_dir
 mkdir -p $log_dir
@@ -20,12 +20,14 @@ export LOTUS_PATH=$lotus_dir/daemon
 export LOTUS_STORAGE_PATH=$lotus_dir/miner
 export WORKER_PATH=$lotus_dir/worker
 
+# export FIL_PROOFS_SDR_PARENTS_CACHE_SIZE=1073741824
+
 ulimit -HSn 1048576
 
 if [ ! -n "$1" ] ;then
     echo "Skip init."
 else
-    ./lotus-miner init --owner=t3vkmg455ehsp2647c44hivztrsosxwd5f5mo65bbcrb4xivde7z2mrsd2um73qdukfjqthxtjijxzq7ln5a4q --sector-size=32GiB
+    ./lotus-miner init --owner=$1 --sector-size=32GiB
 fi
 
 curl -OL https://raw.githubusercontent.com/aimkiray/lotus-script/master/config/miner.toml
