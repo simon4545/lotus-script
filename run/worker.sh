@@ -4,7 +4,7 @@ set -eo pipefail
 
 lotus_dir=/nfs1/lotus
 proofs_dir=/data1/proofs
-log_dir=log
+log_dir=$HOME/log
 
 mkdir -p $lotus_dir
 mkdir -p $log_dir

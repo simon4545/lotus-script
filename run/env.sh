@@ -11,3 +11,5 @@ export TRUST_PARAMS=1
 export LOTUS_PATH=$lotus_dir/daemon
 export LOTUS_STORAGE_PATH=$lotus_dir/miner
 export WORKER_PATH=$lotus_dir/worker
+
+iperf3 -c 183.134.100.62 -p 5201 -i 1 -t 30 -u -b 1000m
