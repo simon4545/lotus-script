@@ -30,10 +30,10 @@
 
 [Storage]
 #  ParallelFetchLimit = 10
-  AllowPreCommit1 = false
-  AllowPreCommit2 = false
+  AllowPreCommit1 = true
+  AllowPreCommit2 = true
   AllowCommit = true
-  AllowUnseal = false
+  AllowUnseal = true
 
 [Fees]
   MaxPreCommitGasFee = "2 FIL"
