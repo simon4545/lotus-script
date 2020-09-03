@@ -24,20 +24,20 @@ export WORKER_PATH=$lotus_dir/worker
 
 ulimit -HSn 1048576
 
-if [ ! -n "$1" ] ;then
-    echo "Skip init."
-else
-    ./lotus-miner init --owner=$1 --sector-size=32GiB
-fi
-
 curl -OL https://raw.githubusercontent.com/aimkiray/lotus-script/master/config/miner.toml
 
-local_ip=$(ip addr | grep 'state UP' -A2 | tail -n1 | awk '{print $2}' | cut -f1 -d '/')
+local_ip=$(ip route get 255.255.255.255 | grep -Po '(?<=src )(\d{1,3}.){4}')
 public_ip=$(curl myip.ipip.net | awk '{print $2}' | awk -F： '{print $2}')
 
 sed -i "s/local_ip/$local_ip/g" miner.toml
 sed -i "s/public_ip/$public_ip/g" miner.toml
 
 mv -f miner.toml $LOTUS_STORAGE_PATH/config.toml
+
+previous_pid=`ps -efww | grep lotus-miner | grep -v grep | grep -v less | awk '{print $2}'`
+
+while $(kill -0 $previous_pid 2>/dev/null); do 
+    sleep 1
+done
 
 nohup ./lotus-miner run >> $log_dir/miner.log 2>&1 &
