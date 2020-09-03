@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -eo pipefail
+# set -eo pipefail
 
 lotus_dir=/nfs1/lotus
 proofs_dir=/data1/proofs
@@ -20,13 +20,13 @@ export LOTUS_PATH=$lotus_dir/daemon
 export LOTUS_STORAGE_PATH=$lotus_dir/miner
 export WORKER_PATH=$lotus_dir/worker
 
-# export FIL_PROOFS_SDR_PARENTS_CACHE_SIZE=1073741824
+export FIL_PROOFS_SDR_PARENTS_CACHE_SIZE=1073741824
 
 ulimit -HSn 1048576
 
 curl -OL https://raw.githubusercontent.com/aimkiray/lotus-script/master/config/miner.toml
 
-local_ip=$(ip route get 255.255.255.255 | grep -Po '(?<=src )(\d{1,3}.){4}')
+local_ip=$(ip route get 255.255.255.255 | grep -Po '(?<=src )(\d{1,3}.){4}' | xargs)
 public_ip=$(curl myip.ipip.net | awk '{print $2}' | awk -F： '{print $2}')
 
 sed -i "s/local_ip/$local_ip/g" miner.toml
