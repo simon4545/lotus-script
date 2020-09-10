@@ -88,12 +88,12 @@ prepare_rust() {
     echo "source $HOME/.cargo/env" >> $HOME/.profile
     source $HOME/.profile
     cat > $HOME/.cargo/config <<EOF
-    [source.crates-io]
-    registry = "https://github.com/rust-lang/crates.io-index"
-    replace-with = 'ustc'
-    [source.ustc]
-    registry = "git://mirrors.ustc.edu.cn/crates.io-index"
-    EOF
+[source.crates-io]
+registry = "https://github.com/rust-lang/crates.io-index"
+replace-with = 'ustc'
+[source.ustc]
+registry = "git://mirrors.ustc.edu.cn/crates.io-index"
+EOF
 }
 
 # Make bin from source
